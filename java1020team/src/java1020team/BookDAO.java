@@ -133,7 +133,6 @@ public class BookDAO {
 				int getb_price = rs.getInt(5);
 				System.out.println(
 						getb_id + "  " + getb_title + "  " + getb_author + "  " + getb_publisher + "  " + getb_price);
-
 			}
 		} catch (Exception e) {
 

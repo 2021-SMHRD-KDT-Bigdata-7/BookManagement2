@@ -8,13 +8,18 @@ public class Main {
 
 		Scanner sc = new Scanner(System.in);
 		
+		BookDAO dao = new BookDAO();
+		
+		int cnt = 0;
 		
 		System.out.println("[Java 도서관리 프로그램]");
-		while (true) {
-		System.out.print("[1]도서등록 [2]도서조회 [3]정보수정 [4]도서삭제 [5]종료 >> ");
-		int menu = sc.nextInt();
 		
-		if (menu == 1) {
+		while (true) {
+			System.out.print("[1]도서등록 [2]도서조회 [3]정보수정 [4]도서삭제 [5]종료 >> ");
+			
+			int menu = sc.nextInt();
+		
+			if (menu == 1) {
 			
 			System.out.print("도서 아이디 : ");
 			String b_id = sc.next();
@@ -29,11 +34,10 @@ public class Main {
 			String b_publisher = sc.next();
 			
 			System.out.print("가격 : ");
-			String b_price = sc.nextInt();
-			
+			int b_price = sc.nextInt();
 			
 			// DAO 클래스에 있는 insert()에 접근할수 있는 객체생성하기
-			int cnt =dao.insert(변수 넣어줘야함);
+			cnt = dao.insert(b_id, b_title, b_author, b_publisher, b_price);
 			
 			if(cnt > 0) {
 			System.out.println("저장 완료");			
@@ -42,40 +46,40 @@ public class Main {
 			}
 
 		} else if (menu == 2) {
+			System.out.print("[1] 특정도서 검색 [2] 전체 검색 >> ");
+			int sel = sc.nextInt();
+			
+			if(sel == 1) {
 			dao.select();
+			}else if(sel == 2) {
+				dao.selectAll();
+			
 			
 		} else if (menu == 3) {
 
-			try {
+
 			System.out.print("수정할 도서 아이디 : ");
 			String b_id = sc.next();
 			
 			System.out.print("가격 : ");
-			String b_price = sc.nextInt();
+			int b_price = sc.nextInt();
+		
+			cnt = dao.update(b_id, b_price);
 			
-			
-			int ubt = dao.update(b_id, b_price);
-			if(ubt > 0) {
+			if(cnt > 0) {
 				System.out.println("수정이 완료되었습니다.");			
 				} else {
 					System.out.println("수정 실패.");
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}finally {
-				close();
-			}
-			return result;
-
-	
+			
+			
 		} else if (menu == 4) {
 
 			System.out.print("삭제할 도서 아이디 : ");
 			String b_id = sc.next();
 			
-		
-			int dlt = dao.delete(b_id);
-			if(dlt > 0) {
+			cnt = dao.delete(b_id);
+			if(cnt > 0) {
 				System.out.println("삭제 완료.");			
 				} else {
 					System.out.println("삭제 실패.");
@@ -87,5 +91,7 @@ public class Main {
 		}
 		
 	}
-
 }
+	}
+}
+
