@@ -4,14 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class BookDAO {
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
-	
-	
-	
+
 	// executeUpdate()의 결과를 담아줄 수 있는 변수.
 	int cnt = 0;
 	// Sql문을 저정하는 변수
@@ -60,29 +59,81 @@ public class BookDAO {
 		}
 
 	}
-		public int insert(BookVO ) {
-			
-			
-			return 0;
-		}
-		public BookVO select(String ) {
-		
-			
-			return 0;
-		}
-		public BookVO selectAll() {
-		
-			
-			return 0;
-		}
-		public int update(String , int) {
-		
-			
-			return 0;
-		}
-		public int delete(String ) {
 
+	public int insert(String b_id, String b_title, String b_author, String b_publisher, int b_price) {
+
+		getConnect();
+
+		sql = "insert into member2 values(?,?,?,?,?)";
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, b_id);
+			psmt.setString(2, b_title);
+			psmt.setString(3, b_author);
+			psmt.setString(4, b_publisher);
+			psmt.setInt(5, b_price);
+
+			cnt = psmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+
+	
+	public BookVO select( ) {
+		
 			
 			return 0;
 		}
+
+	public BookVO selectAll() {
+
+		return 0;
+	}
+
+	public int update(String b_id, int b_price) {
+		getConnect();
+
+		try {
+			String sql = "update book set b_price =? where b_id =? ";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(2, b_id);
+			psmt.setInt(1, b_price);
+			cnt = psmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+
+	public int delete(String b_id) {
+
+		try {
+			String sql = "delete from book where b_id = ? ";
+
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, b_id);
+
+			psmt.executeUpdate();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+			close();
+		}
+		return cnt;
+
+	}
+
 }
