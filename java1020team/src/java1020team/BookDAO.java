@@ -114,7 +114,7 @@ public class BookDAO {
 	public void selectAll() {
 
 		try {
-			sql = "select*from book";
+			sql = "select * from book";
 
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();

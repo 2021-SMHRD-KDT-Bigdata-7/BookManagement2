@@ -49,11 +49,9 @@ public class Main {
 				System.out.print("[1] 특정도서 검색 [2] 전체 검색 >> ");
 				int sel = sc.nextInt();
 				
-				System.out.print("검색 아이디 >> ");
-				String id = sc.next();
-				
-
 				if (sel == 1) {
+					System.out.print("검색 아이디 >> ");
+					String id = sc.next();
 					dao.select(id);
 				} else if (sel == 2) {
 					dao.selectAll();
