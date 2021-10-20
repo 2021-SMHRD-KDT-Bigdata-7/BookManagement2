@@ -10,6 +10,7 @@ public class BookDAO {
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
+	Book book = null;
 
 	// executeUpdate()의 결과를 담아줄 수 있는 변수.
 	int cnt = 0;
@@ -84,19 +85,67 @@ public class BookDAO {
 		return cnt;
 	}
 
-	
-	public BookVO select( ) {
+	public void select() {
 		
-			
-			return 0;
+		getConnect();
+
+		try {
+			sql = "select*from book where b_id=?";
+
+			psmt = conn.prepareStatement(sql);
+			// result를 rs로 축약했습니다.
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String getb_id = rs.getString(1);
+				String getb_title = rs.getString(2);
+				String getb_author = rs.getString(3);
+				String getb_publisher = rs.getString(4);
+				int getb_price = rs.getInt(5);
+				System.out.println(
+						getb_id + "  " + getb_title + "  " + getb_author + "  " + getb_publisher + "  " + getb_price);
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+			close();
+
 		}
 
-	public BookVO selectAll() {
+	}
 
-		return 0;
+	public void selectAll() {
+
+		try {
+			sql = "select*from book";
+
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String getb_id = rs.getString(1);
+				String getb_title = rs.getString(2);
+				String getb_author = rs.getString(3);
+				String getb_publisher = rs.getString(4);
+				int getb_price = rs.getInt(5);
+				System.out.println(
+						getb_id + "  " + getb_title + "  " + getb_author + "  " + getb_publisher + "  " + getb_price);
+
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		} finally {
+			close();
+		}
 	}
 
 	public int update(String b_id, int b_price) {
+	
 		getConnect();
 
 		try {

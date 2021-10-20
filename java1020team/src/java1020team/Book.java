@@ -1,5 +1,5 @@
 package java1020team;
 
-public class book {
+public class Book {
 	
 }
